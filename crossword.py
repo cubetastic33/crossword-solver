@@ -1,7 +1,8 @@
+from itertools import permutations
 import enchant
 
-def solve(letters, word_lengths, intersections):
 
+def solve(letters, word_lengths, intersections):
     d = enchant.Dict("en_US")
 
     dictionary = []
@@ -9,7 +10,7 @@ def solve(letters, word_lengths, intersections):
     for i in range(len(letters) - 1):
         permutations_list = list(permutations(letters, i + 2))
         for p in permutations_list:
-            candidate_word = ''.join(p)
+            candidate_word = "".join(p)
             if d.check(candidate_word):
                 dictionary.append(candidate_word)
     del permutations_list
@@ -35,10 +36,16 @@ def solve(letters, word_lengths, intersections):
         longest_index = 0
         for i in intersections[1:]:
             if s[intersections.index(i)] is None:
-                if len(i) > len(intersections[longest_index]) or s[longest_index] is not None:
+                if (
+                    len(i) > len(intersections[longest_index])
+                    or s[longest_index] is not None
+                ):
                     longest_index = intersections.index(i)
                 elif len(i) == len(intersections[longest_index]):
-                    if word_lengths[intersections.index(i)] > word_lengths[longest_index]:
+                    if (
+                        word_lengths[intersections.index(i)]
+                        > word_lengths[longest_index]
+                    ):
                         longest_index = intersections.index(i)
 
         candidates = []
@@ -55,7 +62,10 @@ def solve(letters, word_lengths, intersections):
                                 break
                         else:
                             for sw in dictionary:
-                                if len(sw) == word_lengths[i[0]] and sw[i[1]] == w[i[2]]:
+                                if (
+                                    len(sw) == word_lengths[i[0]]
+                                    and sw[i[1]] == w[i[2]]
+                                ):
                                     possible = True
                                     break
                                 else:
