@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crossword Solver</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>Crossword Solver</h1>
+        <p>A simple word cookies solver created to circumvent English assignments</p>
+    </header>
+    <main>
+        <table id="board">
+            {% for row in range(10) %}
+                <tr>
+                    {% for col in range(10) %}
+                        <td class="unavailable"></td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <form>
+            <div class="formInput">
+                <label for="letters" autocomplete="off">Letters:</label>
+                <input id="letters" type="text">
+            </div>
+            <br>
+            <div id="error"></div>
+            <br>
+            <button id="solve">Solve it!</button>
+        </form>
+    </main>
+</body>
+<script src="/scripts/jquery-3.5.0.min.js"></script>
+<script src="/scripts/jquery.color-2.1.2.min.js"></script>
+<script src="/scripts/main.js"></script>
+</html>

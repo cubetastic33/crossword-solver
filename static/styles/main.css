@@ -1,0 +1,103 @@
+@font-face {
+    font-family: "Source Sans Pro";
+    src: url(/fonts/SourceSansPro-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Fira Code";
+    src: url(/fonts/FiraCode-Regular.ttf);
+}
+
+@media only screen and (max-width: 100vh) {
+    main {
+        flex-direction: column;
+    }
+
+    #board {
+        margin-bottom: 2rem;
+    }
+
+    #board td {
+        width: 7.5vw !important;
+        height: 7.5vw !important;
+    }
+}
+
+body {
+    background-color: #212121;
+    color: #FFFFFF;
+    font-family: "Source Sans Pro";
+    margin: 0;
+    text-align: center;
+}
+
+header {
+    padding: 1rem;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#board {
+    border: 1px solid #FFFFFF;
+    border-collapse: collapse;
+}
+
+#board td {
+    border: 1px solid #FFFFFF;
+    border-collapse: collapse;
+    width: 3.5vw;
+    height: 3.5vw;
+    font-family: Iosevka, "Fira Code";
+}
+
+#board td.unavailable {
+    background-image: url(/images/diagonales-decalees.png);
+    background-color: #121212;
+    cursor: pointer;
+}
+
+#board td.available {
+    background-color: #444444;
+    cursor: pointer;
+}
+
+#letters {
+    border: none;
+    border-radius: 3px;
+    font-family: Iosevka, "Fira Code";
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    width: 12rem !important;
+}
+
+#error {
+    display: none;
+    color: #FF4444;
+}
+
+#solve {
+    appearance: none;
+    background-color: #FCF344;
+    border: none;
+    border-radius: 3px;
+    padding: 0.35rem 1rem;
+    cursor: pointer;
+}
+
+#solve:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+#solve:active {
+    box-shadow: none;
+}
