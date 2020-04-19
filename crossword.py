@@ -1,3 +1,5 @@
+import enchant
+
 def solve(letters, word_lengths, intersections):
 
     d = enchant.Dict("en_US")
