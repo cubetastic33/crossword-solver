@@ -19,12 +19,12 @@ def solve(letters, word_lengths, intersections):
 
     candidate_solutions = [[None] * len(word_lengths)]
     solutions = []
-    old_s = None
+    s = None
 
     while len(candidate_solutions) > 0:
 
-        if old_s is not None and old_s in candidate_solutions:
-            candidate_solutions.remove(old_s)
+        if s is not None and s in candidate_solutions:
+            candidate_solutions.remove(s)
 
         s = candidate_solutions[0]
 
@@ -77,7 +77,5 @@ def solve(letters, word_lengths, intersections):
             if candidate not in s:
                 candidate_solutions.append(s.copy())
                 candidate_solutions[-1][longest_index] = candidate
-
-        old_s = s
 
     return solutions
