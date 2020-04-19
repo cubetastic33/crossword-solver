@@ -1,9 +1,42 @@
 from itertools import permutations
-import enchant
 
 
-def solve(letters, word_lengths, intersections):
-    d = enchant.Dict("en_US")
+def preprocess_input(board):
+    word_lengths = []
+    intersections = []
+    letters_by_word = []
+    indexed_board = [letter for letter in board if letter != "\n"]
+    for i in range(0, len(indexed_board), 10):
+        in_word = False
+        pairs = list(enumerate(indexed_board))[i:i+10]
+        pairs.extend(list(enumerate(indexed_board))[i//10:91+i//10:10])
+        for index, letter in pairs:
+            if letter == "0" and in_word:
+                in_word = False
+                if word_lengths[-1] == 1:
+                    word_lengths.pop()
+                    letters_by_word.pop()
+            elif letter == "1" and not in_word:
+                in_word = True
+                word_lengths.append(1)
+                letters_by_word.append([index])
+            elif letter == "1":
+                word_lengths[-1] += 1
+                letters_by_word[-1].append(index)
+    for word in letters_by_word:
+        intersections.append([])
+        for local_letter_index, global_letter_index in enumerate(word):
+            for word_index, another_word in enumerate(letters_by_word):
+                if another_word is not word and global_letter_index in another_word:
+                    intersections[-1].append((word_index, another_word.index(global_letter_index), local_letter_index))
+    return word_lengths, intersections
+
+
+def solve(board, letters):
+    print(f"Attempting to solve with letters {letters}")
+    word_lengths, intersections = preprocess_input(board)
+    with open("words.txt", "r") as f:
+        valid_words = f.read().splitlines()
 
     dictionary = []
 
@@ -11,7 +44,7 @@ def solve(letters, word_lengths, intersections):
         permutations_list = list(permutations(letters, i + 2))
         for p in permutations_list:
             candidate_word = "".join(p)
-            if d.check(candidate_word):
+            if candidate_word in valid_words:
                 dictionary.append(candidate_word)
     del permutations_list
 
@@ -21,8 +54,7 @@ def solve(letters, word_lengths, intersections):
     solutions = []
     old_s = None
 
-    while len(candidate_solutions) > 0:
-
+    while len(candidate_solutions) > 0 and len(solutions) <= 20:
         if old_s is not None and old_s in candidate_solutions:
             candidate_solutions.remove(old_s)
 

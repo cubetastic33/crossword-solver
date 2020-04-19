@@ -45,28 +45,35 @@ main {
     justify-content: space-evenly;
 }
 
-#board {
+table {
     border: 1px solid #FFFFFF;
     border-collapse: collapse;
 }
 
-#board td {
+table td {
     border: 1px solid #FFFFFF;
     border-collapse: collapse;
     width: 3.5vw;
     height: 3.5vw;
     font-family: Iosevka, "Fira Code";
+    cursor: pointer;
 }
 
-#board td.unavailable {
+table td.unavailable {
     background-image: url(/images/diagonales-decalees.png);
     background-color: #121212;
-    cursor: pointer;
 }
 
-#board td.available {
+table td.available {
     background-color: #444444;
-    cursor: pointer;
+}
+
+#solutions table {
+    position: relative;
+}
+
+#solutions table td {
+    cursor: default;
 }
 
 #letters {
@@ -85,7 +92,7 @@ main {
     color: #FF4444;
 }
 
-#solve {
+button {
     appearance: none;
     background-color: #FCF344;
     border: none;
@@ -94,10 +101,23 @@ main {
     cursor: pointer;
 }
 
-#solve:hover {
+button:disabled {
+    opacity: 0.9;
+    cursor: default;
+}
+
+button:not(:disabled):hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-#solve:active {
+button:active {
     box-shadow: none;
+}
+
+#solutions, #controls, #solutions table {
+    display: none;
+}
+
+#previous {
+    margin-right: 2rem;
 }

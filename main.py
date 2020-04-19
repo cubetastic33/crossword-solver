@@ -1,6 +1,6 @@
 import os
-from os.path import join
 import json
+from os.path import join
 
 from flask import Flask, render_template, send_from_directory, request
 
@@ -38,4 +38,7 @@ def fonts(path):
 
 @app.route("/solve", methods=["POST"])
 def solve_route():
-    return solve(json.loads(request.form["board"]), request.form["letters"])
+    try:
+        return json.dumps(solve(request.form["board"], request.form["letters"]))
+    except:
+        return json.dumps([])
