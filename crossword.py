@@ -85,7 +85,7 @@ def solve(board, letters):
 
         candidates = []
         for w in dictionary:
-            if w not in candidates and word_lengths[longest_index] == len(w):
+            if w not in s and word_lengths[longest_index] == len(w):
                 possible = True
                 if possible:
                     for i in intersections[longest_index]:
