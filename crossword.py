@@ -5,12 +5,15 @@ def preprocess_input(board):
     word_lengths = []
     intersections = []
     letters_by_word = []
-    indexed_board = [letter for letter in board if letter != "\n"]
+    indexed_board = list(enumerate([letter for letter in board if letter != "\n"]))
     for i in range(0, len(indexed_board), 10):
         in_word = False
-        pairs = list(enumerate(indexed_board))[i:i+10]
-        pairs.extend(list(enumerate(indexed_board))[i//10:91+i//10:10])
-        for index, letter in pairs:
+        pairs = indexed_board[i:i+10]
+        pairs.extend(indexed_board[i//10:91+i//10:10])
+        for j, (index, letter) in enumerate(pairs):
+            if j == 10:
+                # We've completed the row and are moving on to the column
+                in_word = False
             if letter == "0" and in_word:
                 in_word = False
                 if word_lengths[-1] == 1:
@@ -54,7 +57,7 @@ def solve(board, letters):
     solutions = []
     s = None
 
-    while len(candidate_solutions) > 0 and len(solutions) < 100:
+    while len(candidate_solutions) > 0:
         if s is not None and s in candidate_solutions:
             candidate_solutions.remove(s)
 
