@@ -86,16 +86,20 @@ $("#solve").click(function(e) {
                 for (var pair = 0; pair < pairs.length; pair++) {
                     let index = pairs[pair][0];
                     let letter = pairs[pair][1];
-                    if (letter ===  0 && in_word) {
+                    if (pair === 10 || (letter ===  0 && in_word)) {
                         in_word = false;
-                        if (letters_by_word[letters_by_word.length - 1].length === 1) {
+                        if (letters_by_word.length > 0 && letters_by_word[letters_by_word.length - 1].length === 1) {
                             letters_by_word.pop();
                         }
-                    } else if (letter === 1 && !in_word) {
+                    }
+                    if (letter === 1 && !in_word) {
                         in_word = true;
                         letters_by_word.push([index]);
                     } else if (letter === 1) {
                         letters_by_word[letters_by_word.length - 1].push(index);
+                    }
+                    if ([9, 19].includes(pair) && letters_by_word.length > 0 && letters_by_word[letters_by_word.length - 1].length === 1) {
+                        letters_by_word.pop();
                     }
                 }
             }

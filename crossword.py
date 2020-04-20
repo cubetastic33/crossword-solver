@@ -11,21 +11,21 @@ def preprocess_input(board):
         pairs = indexed_board[i:i+10]
         pairs.extend(indexed_board[i//10:91+i//10:10])
         for j, (index, letter) in enumerate(pairs):
-            if j == 10:
-                # We've completed the row and are moving on to the column
+            if j == 10 or (letter == "0" and in_word):
                 in_word = False
-            if letter == "0" and in_word:
-                in_word = False
-                if word_lengths[-1] == 1:
+                if any(word_lengths) and word_lengths[-1] == 1:
                     word_lengths.pop()
                     letters_by_word.pop()
-            elif letter == "1" and not in_word:
+            if letter == "1" and not in_word:
                 in_word = True
                 word_lengths.append(1)
                 letters_by_word.append([index])
             elif letter == "1":
                 word_lengths[-1] += 1
                 letters_by_word[-1].append(index)
+            if j in [9, 19] and any(word_lengths) and word_lengths[-1] == 1:
+                word_lengths.pop()
+                letters_by_word.pop()
     for word in letters_by_word:
         intersections.append([])
         for local_letter_index, global_letter_index in enumerate(word):
