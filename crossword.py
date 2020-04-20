@@ -106,8 +106,7 @@ def solve(board, letters):
                     candidates.append(w)
 
         for candidate in candidates:
-            if candidate not in s:
-                candidate_solutions.append(s.copy())
-                candidate_solutions[-1][longest_index] = candidate
+            candidate_solutions.append(s.copy())
+            candidate_solutions[-1][longest_index] = candidate
 
     return solutions
