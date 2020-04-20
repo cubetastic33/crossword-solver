@@ -54,7 +54,7 @@ def solve(board, letters):
     solutions = []
     s = None
 
-    while len(candidate_solutions) > 0 and len(solutions) <= 20:
+    while len(candidate_solutions) > 0 and len(solutions) < 100:
         if s is not None and s in candidate_solutions:
             candidate_solutions.remove(s)
 
@@ -82,7 +82,7 @@ def solve(board, letters):
 
         candidates = []
         for w in dictionary:
-            if word_lengths[longest_index] == len(w):
+            if w not in candidates and word_lengths[longest_index] == len(w):
                 possible = True
                 if possible:
                     for i in intersections[longest_index]:

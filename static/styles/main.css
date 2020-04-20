@@ -68,12 +68,12 @@ table td.available {
     background-color: #444444;
 }
 
-#solutions table {
-    position: relative;
+#solutions table td.unavailable {
+    cursor: default;
 }
 
-#solutions table td {
-    cursor: default;
+#solutions table td.available {
+    cursor: text;
 }
 
 #letters {
@@ -116,6 +116,10 @@ button:active {
 
 #solutions, #controls, #solutions table {
     display: none;
+}
+
+#controls p:last-child {
+    letter-spacing: 0.5rem;
 }
 
 #previous {

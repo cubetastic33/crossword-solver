@@ -17,9 +17,11 @@ $("#board td").click(function() {
 $("#solve").click(function(e) {
     e.preventDefault();
     $(this).prop("disabled", true);
+    $(this).text("Please wait...");
     if ($("#letters").val() === "") {
         $("#error").text("Please specify the letters to use");
         $("#error").show();
+        $(this).text("Solve it!");
         $(this).prop("disabled", false);
         return;
     }
@@ -38,6 +40,7 @@ $("#solve").click(function(e) {
     if (available < $("#letters").val().length) {
         $("#error").text("Too few boxes are marked available");
         $("#error").show();
+        $(this).text("Solve it!");
         $(this).prop("disabled", false);
         return;
     }
@@ -50,6 +53,7 @@ $("#solve").click(function(e) {
         if (solutions.length === 0) {
             $("#error").text("No solutions found");
             $("#error").show();
+            $("#solve").text("Solve it!");
             $("#solve").prop("disabled", false);
             return;
         }
@@ -95,7 +99,6 @@ $("#solve").click(function(e) {
                     }
                 }
             }
-            console.log(letters_by_word);
             for (var word = 0; word < letters_by_word.length; word++) {
                 for (var letter = 0; letter < solutions[i][word].length; letter++) {
                     $(`#solution${i} .cell${letters_by_word[word][letter]}`).text(solutions[i][word][letter].toUpperCase());
@@ -104,7 +107,11 @@ $("#solve").click(function(e) {
         }
         $("#board, form").hide();
         $("#solutions, #controls").show();
-        $("#controls p").text(`1 / ${solutions.length}`);
+        $("#controls p:first-child").text(`1 / ${solutions.length}`);
+        $("#controls p:last-child").text($("#letters").val().toUpperCase());
+        if (solutions.length === 1) {
+            $("#controls button").prop("disabled", true);
+        }
         $("#solution0").show();
     });
 });
@@ -115,7 +122,7 @@ $("#next").click(() => {
         if ($(`#solution${i}`).css("display") !== "none") {
             $(`#solution${i}`).hide();
             $(`#solution${i + 1 < num_solutions ? i + 1 : 0}`).show();
-            $("#controls p").text(`${i + 1 < num_solutions ? i + 2 : 1} / ${num_solutions}`);
+            $("#controls p:first-child").text(`${i + 1 < num_solutions ? i + 2 : 1} / ${num_solutions}`);
             return;
         }
     }
@@ -127,7 +134,7 @@ $("#previous").click(() => {
         if ($(`#solution${i}`).css("display") !== "none") {
             $(`#solution${i}`).hide();
             $(`#solution${i - 1 >= 0 ? i - 1 : num_solutions - 1}`).show();
-            $("#controls p").text(`${i +- 1 >= 0 ? i : num_solutions} / ${num_solutions}`);
+            $("#controls p:first-child").text(`${i +- 1 >= 0 ? i : num_solutions} / ${num_solutions}`);
             return;
         }
     }
