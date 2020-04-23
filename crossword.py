@@ -5,13 +5,14 @@ def preprocess_input(board):
     word_lengths = []
     intersections = []
     letters_by_word = []
+    size = len(board.split("\n"))
     indexed_board = list(enumerate([letter for letter in board if letter != "\n"]))
-    for i in range(0, len(indexed_board), 10):
+    for i in range(0, len(indexed_board), size):
         in_word = False
-        pairs = indexed_board[i:i+10]
-        pairs.extend(indexed_board[i//10:91+i//10:10])
+        pairs = indexed_board[i:i+size]
+        pairs.extend(indexed_board[i//size:((size - 1) * size + 1)+i//size:size])
         for j, (index, letter) in enumerate(pairs):
-            if j == 10 or (letter == "0" and in_word):
+            if j == size or (letter == "0" and in_word):
                 in_word = False
                 if any(word_lengths) and word_lengths[-1] == 1:
                     word_lengths.pop()
@@ -23,7 +24,7 @@ def preprocess_input(board):
             elif letter == "1":
                 word_lengths[-1] += 1
                 letters_by_word[-1].append(index)
-            if j in [9, 19] and any(word_lengths) and word_lengths[-1] == 1:
+            if j in [size - 1, size + size - 1] and any(word_lengths) and word_lengths[-1] == 1:
                 word_lengths.pop()
                 letters_by_word.pop()
     for word in letters_by_word:
